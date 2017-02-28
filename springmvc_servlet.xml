@@ -43,7 +43,7 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/admin/**"/>
-			<bean class="org.fkjava.myoa.controller.interceptor.LoginInterceptor">
+			<bean class="com.sharp.controller.interceptor.LoginInterceptor">
 				<property name="excludeMethods">
 					<array>
 						<value>/admin/loginAjax.jspx</value>
