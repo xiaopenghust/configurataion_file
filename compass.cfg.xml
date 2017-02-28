@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<compass-core-config xmlns="http://www.compass-project.org/schema/core-config"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.compass-project.org/schema/core-config
+	http://www.compass-project.org/schema/compass-core-config-2.2.xsd">
+
+	<compass name="default">
+
+		<!-- 配置索引库的存储目录 -->
+		<connection>
+			<file path="f:/liuyan_index" />
+		</connection>
+		
+		<cache>
+			<firstLevel type="org.compass.core.cache.first.NullFirstLevelCache" />
+		</cache>
+		
+		<mappings>
+			<class name="org.fkjava.liuyan.so.ArticleSo" />
+		</mappings>
+		
+		<settings>
+			<!-- setting元素就像于property元素 -->
+			<setting name="compass.engine.analyzer.default.type" 
+				value="net.paoding.analysis.analyzer.PaodingAnalyzer"/>	
+				
+			<setting name="compass.engine.highlighter.default.formatter.simple.pre" 
+				value="&lt;font color='red'&gt;&lt;b&gt;"/>
+			<setting name="compass.engine.highlighter.default.formatter.simple.post"
+				value="&lt;/b&gt;&lt;/font&gt;"/>
+							       
+		</settings>
+		
+	</compass>
+
+</compass-core-config>

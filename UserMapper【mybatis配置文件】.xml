@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper      
+    PUBLIC "-//mybatis.apache.org//DTD Mapper 3.0//EN"      
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.sharp.ssm.mapper.UserMapper">
+	
+	<insert id="addUser">
+		<selectKey keyProperty="id" order="BEFORE" resultType="int">
+			SELECT SEQ_TB_USER.NEXTVAL FROM DUAL
+		</selectKey>
+		insert into tb_user(id, name, pass, address) 
+			values(#{id},#{name},#{pass},#{address})
+	</insert>
+	<delete id="deleteUser">
+		delete from tb_user where id = #{id,jdbcType=NUMERIC}
+	</delete>
+	<delete id="batchDeleteUser">
+		delete from tb_user where id in
+		<foreach collection="ids" open="(" close=")" separator="," item="id">
+			#{id}
+		</foreach>
+	</delete>
+	<update id="updateUser">
+		update tb_user
+		<include refid="userSet"/>
+	</update>
+	<select id="getUserById"  resultType="User">
+		select id, name, pass, address from tb_user where id = #{id}
+	</select>
+	<select id="getUserByCondition"  resultType="User">
+		select id, name, pass, address from tb_user
+		<include refid="userWhere"/>
+	</select>
+	<select id="getAllUser" resultType="User">
+		select id, name, pass, address from tb_user
+	</select>
+	<sql id="userSet">
+		<set>
+			<if test="name != null and name != ''">
+				name = #{name},
+			</if>
+			<if test="pass != null and pass != ''">
+				pass = #{pass},
+			</if>
+			<if test="address != null and address != ''">
+				address = #{address},
+			</if>
+		</set>
+		where id = #{id}
+	</sql>
+	<sql id="userWhere">
+		<where>
+			<if test="id != null and id != 0">
+				and id = #{id}
+			</if>
+			<if test="name != null and name != ''">
+				and name = #{name}
+			</if>
+			<if test="pass != null and pass != ''">
+				and pass = #{pass}
+			</if>
+			<if test="address != null and address != ''">
+				and address = #{address}
+			</if>
+		</where>
+	</sql>
+</mapper>
